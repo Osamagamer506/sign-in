@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>تسجيل الدخول</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: #222;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: rgba(0,0,0,0.7);
+      padding: 2rem;
+      border-radius: 10px;
+      width: 300px;
+      box-shadow: 0 0 10px #ff0000;
+      text-align: center;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+    }
+    button {
+      background-color: #ff0000;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #cc0000;
+    }
+    a {
+      color: #ffd700;
+      text-decoration: none;
+      display: block;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>تسجيل الدخول</h2>
+    <input type="text" id="username" placeholder="اسم المستخدم" />
+    <input type="password" id="password" placeholder="كلمة المرور" />
+    <button onclick="signin()">دخول</button>
+    <a href="signup.html">ليس لديك حساب؟ إنشاء حساب</a>
+    <p id="msg" style="color:yellow;"></p>
+  </div>
+
+  <script>
+    function signin() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+
+      if(!username || !password) {
+        document.getElementById('msg').textContent = 'يرجى ملء جميع الحقول';
+        return;
+      }
+
+      const userStr = localStorage.getItem('user_' + username);
+      if(!userStr) {
+        document.getElementById('msg').textContent = 'اسم المستخدم غير موجود';
+        return;
+      }
+
+      const user = JSON.parse(userStr);
+      if(user.password !== password) {
+        document.getElementById('msg').textContent = 'كلمة المرور خاطئة';
+        return;
+      }
+
+      document.getElementById('msg').style.color = 'lightgreen';
+      document.getElementById('msg').textContent = 'تم تسجيل الدخول بنجاح!';
+
+      // حفظ تسجيل الدخول في localStorage (مثلاً)
+      localStorage.setItem('loggedInUser', username);
+
+      // بعد 2 ثواني ننتقل للصفحة الرئيسية أو أي صفحة تريد
+      setTimeout(() => {
+        window.location.href = 'index.html'; // غيرها لصفحتك الرئيسية
+      }, 2000);
+    }
+  </script>
+
+</body>
+</html>

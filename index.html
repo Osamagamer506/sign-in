@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DevilBox | Minecraft Server</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet" />
+  <style>
+    /* الخط والتهيئة */
+    body {
+      font-family: 'Cairo', sans-serif;
+      margin: 0; padding: 0;
+      background: linear-gradient(-45deg, #1a2a6c, #b21f1f, #fdbb2d, #22c1c3);
+      background-size: 400% 400%;
+      animation: bgmove 15s ease infinite;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    @keyframes bgmove {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+      animation: fadeInDown 1.5s ease forwards;
+      opacity: 0;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.2rem;
+      text-shadow: 0 0 15px #ff0000;
+    }
+
+    p {
+      font-size: 1.3rem;
+      margin: 0;
+      text-shadow: 0 0 7px #000;
+    }
+
+    /* صندوق الدخول والترحيب */
+    .box {
+      background: rgba(0,0,0,0.6);
+      padding: 2.5rem 3rem;
+      border-radius: 12px;
+      box-shadow: 0 0 25px #ff0000;
+      width: 350px;
+      max-width: 90vw;
+      text-align: center;
+      animation: fadeInUp 2s ease forwards;
+      opacity: 0;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 1.5rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: #ff0000;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 1.3rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #cc0000;
+    }
+
+    .server-ip {
+      margin-top: 1.8rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #ffd700;
+      text-shadow: 0 0 8px #ffd700;
+    }
+
+    .links {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      text-align: center;
+      animation: fadeInUp 3s ease forwards;
+      opacity: 0;
+    }
+
+    .links a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 1.2rem;
+      font-weight: bold;
+      text-shadow: 0 0 10px #ff0000;
+      transition: color 0.3s ease;
+    }
+
+    .links a:hover {
+      color: #ffd700;
+    }
+
+    /* أنيميشن FadeIn */
+    @keyframes fadeInDown {
+      from {opacity: 0; transform: translateY(-30px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes fadeInUp {
+      from {opacity: 0; transform: translateY(30px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>DevilBox</h1>
+    <p>سيرفر ديفل كرافت الرسمي</p>
+  </header>
+
+  <div class="box" id="loginBox">
+    <input type="text" id="username" placeholder="ادخل اسم المستخدم" />
+    <button onclick="login()">دخول</button>
+  </div>
+
+  <div class="box" id="welcomeBox" style="display:none;">
+    <h2 id="welcomeMsg"></h2>
+    <div class="server-ip">IP السيرفر: DevilBoxOS.aternos.me:58426</div>
+  </div>
+
+  <div class="links">
+    <a href="server.html" target="_blank">رابط السيرفر</a>
+ |
+    <a href="https://discord.gg/ttAuyy2K" target="_blank">ديسكورد</a>
+  </div>
+
+  <script>
+  function login() {
+    const usernameInput = document.getElementById('username');
+    const username = usernameInput.value.trim();
+
+    if (username === '') {
+      alert('الرجاء إدخال اسم المستخدم');
+      return;
+    }
+
+    document.getElementById('loginBox').style.display = 'none';
+    const welcomeBox = document.getElementById('welcomeBox');
+    const welcomeMsg = document.getElementById('welcomeMsg');
+
+    if (['balqess', 'balqees'].includes(username.toLowerCase())) {
+      welcomeMsg.textContent = 'الله يطول بعمرك يا أغلى أم ❤️';
+    } else if (username.toLowerCase() === 'jonathan') {
+      welcomeMsg.textContent = 'الله يطول بعمرك يا أبوي الغالي ❤️';
+    } else {
+      welcomeMsg.textContent = `مرحباً، ${username}!`;
+    }
+
+    welcomeBox.style.display = 'block';
+  }
+  </script>
+
+</body>
+</html>

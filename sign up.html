@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>إنشاء حساب جديد</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: #222;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: rgba(0,0,0,0.7);
+      padding: 2rem;
+      border-radius: 10px;
+      width: 300px;
+      box-shadow: 0 0 10px #ff0000;
+      text-align: center;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+    }
+    button {
+      background-color: #ff0000;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #cc0000;
+    }
+    a {
+      color: #ffd700;
+      text-decoration: none;
+      display: block;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>إنشاء حساب جديد</h2>
+    <input type="text" id="username" placeholder="اسم المستخدم" />
+    <input type="password" id="password" placeholder="كلمة المرور" />
+    <button onclick="signup()">تسجيل</button>
+    <a href="signin.html">لديك حساب؟ تسجيل الدخول</a>
+    <p id="msg" style="color:yellow;"></p>
+  </div>
+
+  <script>
+    function signup() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+
+      if(!username || !password) {
+        document.getElementById('msg').textContent = 'يرجى ملء جميع الحقول';
+        return;
+      }
+
+      // تحقق اذا الاسم موجود
+      if(localStorage.getItem('user_' + username)) {
+        document.getElementById('msg').textContent = 'اسم المستخدم موجود بالفعل';
+        return;
+      }
+
+      // خزّن البيانات في localStorage
+      const userData = {
+        username: username,
+        password: password
+      };
+      localStorage.setItem('user_' + username, JSON.stringify(userData));
+      document.getElementById('msg').style.color = 'lightgreen';
+      document.getElementById('msg').textContent = 'تم إنشاء الحساب! يمكنك الآن تسجيل الدخول.';
+      
+      // ممكن تنقل صفحة تسجيل الدخول بعد 2 ثانية
+      setTimeout(() => {
+        window.location.href = 'signin.html';
+      }, 2000);
+    }
+  </script>
+
+</body>
+</html>
